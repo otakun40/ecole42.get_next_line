@@ -6,7 +6,7 @@
 /*   By: pjacoby <pjacoby@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 03:44:57 by pjacoby           #+#    #+#             */
-/*   Updated: 2021/11/06 03:53:01 by pjacoby          ###   ########.fr       */
+/*   Updated: 2021/11/06 20:23:52 by pjacoby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t    i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -22,12 +22,14 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char    *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-	char    *result;
-	int        i;
+	char	*result;
+	int		i;
 
 	i = 0;
+	if (!s || !*s)
+		return (NULL);
 	result = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (result != NULL)
 	{
@@ -41,11 +43,11 @@ char    *ft_strdup(const char *s)
 	return (result);
 }
 
-void    *ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t    i;
-	char    *d;
-	char    *s;
+	size_t	i;
+	char	*d;
+	char	*s;
 
 	if (src || dst)
 	{
@@ -63,7 +65,7 @@ void    *ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
 		return (NULL);
 }
 
-char    *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s != (char)c && *s)
 		s++;
@@ -72,31 +74,30 @@ char    *ft_strchr(const char *s, int c)
 	return ((char *)s);
 }
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char    *substring;
-	size_t    i;
-	size_t    slen;
-	size_t    substringlen;
+	size_t	s1len;
+	size_t	s2len;
+	char	*temp;
+	char	*result;
 
-	i = 0;
-	if (!s)
-		return (0);
-	slen = ft_strlen((char *)s);
-	if (len == 0 || start > slen)
-		substringlen = 0;
-	else if (start + len > slen)
-		substringlen = slen - start;
-	else
-		substringlen = len;
-	substring = (char *)malloc(sizeof(char) * (substringlen + 1));
-	if (substring)
+	if (!s1 && !s2)
+		return (NULL);
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	result = (char *)malloc(sizeof(char) * (s1len + s2len + 1));
+	temp = result;
+	if (result)
 	{
-		substring[substringlen] = 0;
-		while (i < substringlen)
-			substring[i++] = s[start++];
+		ft_memcpy(temp, s1, s1len);
+		temp += s1len;
+		ft_memcpy(temp, s2, s2len);
+		temp += s2len;
+		*temp = 0;
 	}
-	return (substring);
+	return (result);
 }
-
-
