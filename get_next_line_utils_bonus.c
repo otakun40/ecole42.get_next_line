@@ -6,11 +6,11 @@
 /*   By: pjacoby <pjacoby@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 03:44:57 by pjacoby           #+#    #+#             */
-/*   Updated: 2021/11/06 20:23:52 by pjacoby          ###   ########.fr       */
+/*   Updated: 2021/11/07 01:08:05 by pjacoby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
