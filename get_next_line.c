@@ -6,7 +6,7 @@
 /*   By: pjacoby <pjacoby@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:55:08 by pjacoby           #+#    #+#             */
-/*   Updated: 2021/11/06 21:00:06 by pjacoby          ###   ########.fr       */
+/*   Updated: 2021/11/06 21:28:08 by pjacoby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,27 @@ char	*check_rem(char	**remainder, char **result)
 	return (nl_pos);
 }
 
-//void	check_next_line(char **nl_pos, char **remainder, char **result)
-//{
-//
-//}
+void	check_next_line(char *nl_pos, char *buf,
+						char **remainder, char **result)
+{
+	char	*temp;
+	char	*temp2;
+
+	if (nl_pos)
+	{
+		*remainder = ft_strdup(nl_pos + 1);
+		temp = *result;
+		*(nl_pos + 1) = '\0';
+		temp2 = ft_strdup(buf);
+		*result = ft_strjoin(*result, temp2);
+		free(temp2);
+		free (temp);
+		return ;
+	}
+	temp = *result;
+	*result = ft_strjoin(*result, buf);
+	free(temp);
+}
 
 char	*get_next_line(int fd)
 {
@@ -50,8 +67,6 @@ char	*get_next_line(int fd)
 	static char	*remainder;
 	char		*nl_pos;
 	int			rd;
-	char		*temp;
-	char		*temp2;
 
 	if (fd < 0)
 		return (NULL);
@@ -63,20 +78,7 @@ char	*get_next_line(int fd)
 			break ;
 		buf[rd] = 0;
 		nl_pos = ft_strchr(buf, '\n');
-		if (nl_pos)
-		{
-			remainder = ft_strdup(nl_pos + 1);
-			temp = result;
-			*(nl_pos + 1) = '\0';
-			temp2 = ft_strdup(buf);
-			result = ft_strjoin(result, temp2);
-			free(temp2);
-			free (temp);
-			return (result);
-		}
-		temp = result;
-		result = ft_strjoin(result, buf);
-		free(temp);
+		check_next_line(nl_pos, buf, &remainder, &result);
 	}
 	return (result);
 }
