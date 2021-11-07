@@ -26,5 +26,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*check_rem(char	**remainder, char **result);
+void	set_result(char *nl_pos, char *buf, char **remainder, char **result);
 char	*get_next_line(int fd);
 #endif
