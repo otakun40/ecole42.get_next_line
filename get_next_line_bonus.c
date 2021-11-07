@@ -6,7 +6,7 @@
 /*   By: pjacoby <pjacoby@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:55:08 by pjacoby           #+#    #+#             */
-/*   Updated: 2021/11/06 23:40:56 by pjacoby          ###   ########.fr       */
+/*   Updated: 2021/11/07 01:19:02 by pjacoby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ char	*get_next_line(int fd)
 	while (!nl_pos)
 	{
 		rd = read(fd, buf, BUFFER_SIZE);
-		if (rd <= 0)
+		if (rd == 0)
 			break ;
+		else if (rd < 0)
+			return (NULL);
 		buf[rd] = 0;
 		nl_pos = ft_strchr(buf, '\n');
 		set_result(nl_pos, buf, &remainder[fd], &result);

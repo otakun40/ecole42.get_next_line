@@ -74,8 +74,10 @@ char	*get_next_line(int fd)
 	while (!nl_pos)
 	{
 		rd = read(fd, buf, BUFFER_SIZE);
-		if (rd <= 0)
+		if (rd == 0)
 			break ;
+		else if (rd < 0)
+			return (NULL);
 		buf[rd] = '\0';
 		nl_pos = ft_strchr(buf, '\n');
 		set_result(nl_pos, buf, &remainder, &result);
